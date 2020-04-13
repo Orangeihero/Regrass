@@ -41,14 +41,25 @@ float4 frag(v2f i):SV_TARGET0{
 	fixed3 halfDir = normalize(worldLightDir + worldViewDir);
 	fixed shadow = SHADOW_ATTENUATION(i);
 
-	fixed halfLambert = (0.5 * dot(worldNormal,worldLightDir) + 0.5) * shadow;
+	fixed halfLambert = (0.5 * dot(worldNormal,worldLightDir)) + 0.5;
+	//if(shadow < 0.5){
+	//	halfLambert = 0.01;
+	//}else{
+	//	halfLambert *= shadow;
+	//}
+	
 	fixed3 diffuseColor = tex2D(_RampTex,fixed2(halfLambert,halfLambert)).rgb * _Diffuse.rgb;
+	//if(shadow < 0.3){
+		diffuseColor *= shadow;
+	//}
+
 
 	fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
-	fixed3 diffuse = _LightColor0.rgb * diffuseColor;			
+	fixed3 diffuse = _LightColor0.rgb * diffuseColor;
+	fixed3 specular = _LightColor0.rgb * _Specular.rgb * pow(max(0,dot(worldNormal,halfDir)),_Gloss);
 
 	fixed atten = 1.0;
-	return fixed4(ambient + diffuse * atten * shadow , 1.0);
+	return fixed4(ambient + diffuse * atten , 1.0);
 			
 }
 		
