@@ -49,9 +49,9 @@ float4 frag(v2f i):SV_TARGET0{
 	//}
 	
 	fixed3 diffuseColor = tex2D(_RampTex,fixed2(halfLambert,halfLambert)).rgb * _Diffuse.rgb;
-	//if(shadow < 0.3){
+	if(shadow < 0.3){
 		diffuseColor *= shadow;
-	//}
+	}
 
 
 	fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
