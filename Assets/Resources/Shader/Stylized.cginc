@@ -15,6 +15,8 @@ fixed4 _Specular;
 float _Gloss;
 sampler2D _RampTex;
 float4 _RampTex_ST;
+sampler2D _GridTex;
+float4 _GridTex_ST;
 
 struct v2f{
 	float4 pos : SV_POSITION;
@@ -48,7 +50,7 @@ float4 frag(v2f i):SV_TARGET0{
 	//	halfLambert *= shadow;
 	//}
 	
-	fixed3 diffuseColor = tex2D(_RampTex,fixed2(halfLambert,halfLambert)).rgb * _Diffuse.rgb;
+	fixed3 diffuseColor = tex2D(_RampTex,fixed2(halfLambert,halfLambert)).rgb * _Diffuse.rgb * tex2D(_GridTex,i.uv).rgb;
 	if(shadow < 0.3){
 		diffuseColor *= shadow;
 	}

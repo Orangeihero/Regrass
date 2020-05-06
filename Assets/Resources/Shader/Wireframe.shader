@@ -2,12 +2,13 @@ Shader "Custom/Wireframe"
 {
 	Properties
 	{
-		_LineColor("Line Color",Color) = (1.0,1.0,1.0,1.0)
-		_WireWidth("Wire Width",Range(0,1)) = 0.1
+		//_LineColor("Line Color",Color) = (1.0,1.0,1.0,1.0)
+		//_WireWidth("Wire Width",Range(0,1)) = 0.1
 		_Diffuse("DIFFUSE", Color) = (1,1,1,1)
 		_Specular("Specular", Color) = (1,1,1,1)
 		_Gloss("Gloss",Range(8.0,256)) = 20
 		_RampTex("Ramp Tex",2D) = "white"{}
+		_GridTex("Grid Texture",2D) = "white"{}
 	}
 
 	SubShader
@@ -64,39 +65,39 @@ Shader "Custom/Wireframe"
 
 		//Tags { "RenderType"="Transparent" "Queue"="Transparent" }
 
-		Pass 
-		{
-			Blend SrcAlpha OneMinusSrcAlpha
-			LOD 200
-			Cull Front
-			zWrite off
+		//Pass 
+		//{
+		//	Blend SrcAlpha OneMinusSrcAlpha
+		//	LOD 200
+		//	Cull Front
+		//	zWrite off
 
-			CGPROGRAM
-			#pragma target 4.0
-			#include "UnityCG.cginc"
-			#include "Wireframe Function.cginc"
-			#pragma vertex vert
-			#pragma fragment frag
+		//	CGPROGRAM
+		//	#pragma target 4.0
+		//	#include "UnityCG.cginc"
+		//	#include "Wireframe Function.cginc"
+		//	#pragma vertex vert
+		//	#pragma fragment frag
 			
-			ENDCG
-		}
+		//	ENDCG
+		//}
 
-		Pass 
-		{
-			Blend SrcAlpha OneMinusSrcAlpha
-			LOD 200
-			Cull Back
-			zWrite off
+		//Pass 
+		//{
+		//	Blend SrcAlpha OneMinusSrcAlpha
+		//	LOD 200
+		//	Cull Back
+		//	zWrite off
 
-			CGPROGRAM
+		//	CGPROGRAM
 
-			#pragma target 4.0
-			#include "UnityCG.cginc"
-			#include "Wireframe Function.cginc"
-			#pragma vertex vert
-			#pragma fragment frag
-			ENDCG
-			}
+		//	#pragma target 4.0
+		//	#include "UnityCG.cginc"
+		//	#include "Wireframe Function.cginc"
+		//	#pragma vertex vert
+		//	#pragma fragment frag
+		//	ENDCG
+		//	}
 
 		//Pass
 		//{
