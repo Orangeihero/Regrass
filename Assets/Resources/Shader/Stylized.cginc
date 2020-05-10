@@ -52,14 +52,15 @@ float4 frag(v2f i):SV_TARGET0{
 	
 	fixed3 diffuseColor = tex2D(_RampTex,fixed2(halfLambert,halfLambert)).rgb * _Diffuse.rgb * tex2D(_GridTex,i.uv).rgb;
 	if(shadow < 0.3){
-		diffuseColor *= shadow;
-	}
+		diffuseColor *= 0.2;}
+	//}else if(shadow < 0.4){
+	//	diffuseColor *= 0.2 + (shadow - 0.3) * 0.8;
+	//}
 
 
 	fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
 	fixed3 diffuse = _LightColor0.rgb * diffuseColor;
 	fixed3 specular = _LightColor0.rgb * _Specular.rgb * pow(max(0,dot(worldNormal,halfDir)),_Gloss);
-
 	fixed atten = 1.0;
 	return fixed4(ambient + diffuse * atten , 1.0);
 			
