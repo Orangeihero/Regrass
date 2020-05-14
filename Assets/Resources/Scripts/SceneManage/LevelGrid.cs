@@ -89,7 +89,7 @@ public class LevelGrid
         else
         {
             //TODO:把水的状态清除回0
-            ScanGrids();
+            ScanGrids();//这行可能有问题，消除后不仅仅要遍历以此为起点的连通区域
         }
     }
 
