@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4009234521215056621}
   - component: {fileID: 4009234521215056620}
   - component: {fileID: 4009234521215056623}
-  - component: {fileID: 4332802026524584059}
+  - component: {fileID: 7339630625623135087}
   m_Layer: 0
   m_Name: BounceMushSeedPrefab
   m_TagString: Untagged
@@ -332,7 +332,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 0}
---- !u!114 &4332802026524584059
+--- !u!114 &7339630625623135087
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -341,7 +341,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4009234521215056622}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b829ce0e057464548a6db36c3c5a1ab4, type: 3}
+  m_Script: {fileID: 11500000, guid: 93cf4e6d5a29db641b13f212ee25e068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isActivate: 0

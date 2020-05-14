@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 7118274633410738299}
   - component: {fileID: 7118274633410738300}
   - component: {fileID: 7118274633410738301}
-  - component: {fileID: 7118274633410738302}
+  - component: {fileID: 8489005809147300311}
+  - component: {fileID: 2017133587929378982}
   m_Layer: 0
   m_Name: RedWaterPrefab
   m_TagString: Untagged
@@ -294,8 +295,8 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!64 &7118274633410738302
-MeshCollider:
+--- !u!65 &8489005809147300311
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -304,7 +305,18 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0.5, y: 0.5, z: -0.5}
+--- !u!114 &2017133587929378982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7118274633410738303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fe51e78fbc621e4986f625331980068, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
