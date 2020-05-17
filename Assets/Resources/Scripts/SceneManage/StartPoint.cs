@@ -2,31 +2,49 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartPoint : MonoBehaviour
+public enum SeedType
+{
+    LIGHTGRASS = 1,
+    LIGHTMUSH = 2,
+    BOUNCEMUSH = 3,
+    BLOCKTREE = 4
+}
+
+abstract public class StartPoint : MonoBehaviour
 {
     public bool isActivate = false;
+    public SeedType type;
+    public GameObject deactivate;
+    public WaterColor color;
+    public Vector3 centerPointOffset;
 
-    // Start is called before the first frame update
-    void Start()
+    private Vector3 hitPoint;
+
+    protected void InitializeGrid()
     {
         int layerMask = 1 << 9;
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 1f, layerMask))
+        if (Physics.Raycast(transform.position + transform.TransformVector(centerPointOffset) + transform.TransformDirection(Vector3.up) * 0.5f, transform.TransformDirection(Vector3.down), out hit, 1.2f, layerMask))
         {
+            hitPoint = hit.point;
             LevelGrid grid = hit.collider.GetComponent<GridSplitter>().GetGridAtPosition(hit.point);
+            Debug.Log($"{grid.position}");
             grid.type = GridType.SEED;
             grid.seed = this;
-
+            grid.groundColor = color;
+            grid.state = 2;
+            Debug.Log(grid.state);
         }
     }
 
-    public void Activate()
-    {
-        //TODO:激活
-    }
+    abstract public void Activate();
 
-    public void Deactivate()
+    abstract public void Deactivate();
+
+    private void OnDrawGizmos()
     {
-        //TODO:不激活
+        Gizmos.color = Color.black;
+        Gizmos.DrawLine(transform.position + transform.TransformVector(centerPointOffset) + transform.TransformDirection(Vector3.up) * 0.5f, hitPoint);
+        
     }
 }

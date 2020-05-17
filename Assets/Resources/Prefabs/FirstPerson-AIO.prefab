@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1085157747}
-  - component: {fileID: 1085157748}
+  - component: {fileID: 2691940012759106331}
   m_Layer: 8
   m_Name: Gun
   m_TagString: Untagged
@@ -34,7 +34,7 @@ Transform:
   m_Father: {fileID: 4288335847994348}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1085157748
+--- !u!114 &2691940012759106331
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,11 +43,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1085157746}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d443397f4b2c7fd4ab4ce513a8c4b978, type: 3}
+  m_Script: {fileID: 11500000, guid: dfdf65d8bbe79334faa5b487c8c18e05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pars1: {fileID: 198169298674165197}
-  pars2: {fileID: 198169297927967038}
+  waterGunRange: 100
+  debugText: {fileID: 0}
 --- !u!1 &1129895495175522
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,12 +647,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 696093861}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &198169298674165197 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 198169299089697128, guid: d5fa3b8c3865f7149978259b5ee7727f,
-    type: 3}
-  m_PrefabInstance: {fileID: 696093861}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1170454614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -744,12 +738,6 @@ PrefabInstance:
 --- !u!4 &4788510200447280 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4788509173086566, guid: d5fa3b8c3865f7149978259b5ee7727f,
-    type: 3}
-  m_PrefabInstance: {fileID: 1170454614}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &198169297927967038 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 198169299089697128, guid: d5fa3b8c3865f7149978259b5ee7727f,
     type: 3}
   m_PrefabInstance: {fileID: 1170454614}
   m_PrefabAsset: {fileID: 0}

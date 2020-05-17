@@ -23,6 +23,7 @@ public class LevelCube : GridSplitter
     void Start()
     {
         FindNearGrids();
+        GameManager.AddScanCube(this);
     }
 
     void Test()
@@ -35,24 +36,24 @@ public class LevelCube : GridSplitter
         
     }
 
-    private void OnDrawGizmos()
-    {
-        //Gizmos.color = Color.white;
-        //for (int i = 0; i < levelGrids.Length; i++)
-        //{
-        //    Gizmos.DrawLine(levelGrids[i].position, levelGrids[i].position + levelGrids[i].direction);
-        //}
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    //Gizmos.color = Color.white;
+    //    //for (int i = 0; i < levelGrids.Length; i++)
+    //    //{
+    //    //    Gizmos.DrawLine(levelGrids[i].position, levelGrids[i].position + levelGrids[i].direction);
+    //    //}
+    //}
     
     //输入世界坐标，返回对应位置的LevelGrid对象
     public override LevelGrid GetGridAtPosition(Vector3 position)
     {
         Vector3 offset = position - startPoint;
-        if (offset.x == 0 || offset.x == cubeSize.x)
+        if (Mathf.Abs(offset.x - 0) < 0.01f || Mathf.Abs(offset.x - cubeSize.x) < 0.01f)
         {
             offset.y = Mathf.Floor(offset.y);
             offset.z = Mathf.Floor(offset.z);
-            if (offset.x == cubeSize.x)
+            if (Mathf.Abs(offset.x - cubeSize.x) < 0.01f)
             {
                 float indexoffset = cubeSize.x * cubeSize.y * 2 + cubeSize.x * cubeSize.z * 2;
                 return levelGrids[(int)indexoffset + (int)offset.y * (int)cubeSize.z * 2 + (int)offset.z * 2];
@@ -63,11 +64,11 @@ public class LevelCube : GridSplitter
                 return levelGrids[(int)indexoffset + (int)offset.y * (int)cubeSize.z * 2 + (int)offset.z * 2 + 1];
             }
         }
-        else if (offset.y == 0 || offset.y == cubeSize.y)
+        else if (Mathf.Abs(offset.y - 0) < 0.01f || Mathf.Abs(offset.y - cubeSize.y) < 0.01f) 
         {
             offset.x = Mathf.Floor(offset.x);
             offset.z = Mathf.Floor(offset.z);
-            if (offset.y == cubeSize.y)
+            if (Mathf.Abs(offset.y - cubeSize.y) < 0.01f)
             {
                 float indexoffset = cubeSize.x * cubeSize.y * 2;
                 return levelGrids[(int)indexoffset + (int)offset.x * (int)cubeSize.z * 2 + (int)offset.z * 2];
@@ -82,7 +83,7 @@ public class LevelCube : GridSplitter
         {
             offset.y = Mathf.Floor(offset.y);
             offset.x = Mathf.Floor(offset.x);
-            if (offset.z == cubeSize.z)
+            if (Mathf.Abs(offset.z - cubeSize.z) < 0.01f)
             {
                 float indexoffset = 0;
                 return levelGrids[(int)indexoffset + (int)offset.x * (int)cubeSize.y * 2 + (int)offset.y * 2];
@@ -106,7 +107,7 @@ public class LevelCube : GridSplitter
         int gridIndex = 0;
         GridType type;
 
-        if (GetComponent<MeshRenderer>().material.name == "GroundMat") 
+        if (GetComponent<MeshRenderer>().material.name == "GroundMat (Instance)") 
         {
             type = GridType.GROUND;
         }
