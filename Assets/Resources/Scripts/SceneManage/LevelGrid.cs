@@ -32,16 +32,15 @@ public class LevelGrid
     private LevelGrid[] nearGrids = new LevelGrid[4]; //邻接格子
     
     //地块属性
-    private int luminance = 0;//亮度
+    public int luminance = 0;//亮度
     public int state = 0; // 0是没有被染色，1是被染色，2是染色且与未激活起点连接，3是染色且与激活起点连接
     public GridType type; //地面类型，包括地面、玻璃、起点、终点
     public WaterColor groundColor = WaterColor.BLUE; //地面颜色，包括蓝色、红色
     
     //其他
-    public StartPoint seed;//该地面上的起点
+    public StartPoint seed;//与该地面连接的起点们
 
     //记录和哪个起点相连
-
 
     //记录遍历
     public bool haveScanned = true;
@@ -175,7 +174,7 @@ public class LevelGrid
         }
     }
 
-    //TODO:遍历场景
+    //遍历场景
     private void ScanGrids()
     {
         if (haveScanned == true) return;//如果当前点已经判断过了就直接return（针对cleargrid）

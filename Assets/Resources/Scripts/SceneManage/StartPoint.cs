@@ -2,21 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SeedType
-{
-    LIGHTGRASS = 1,
-    LIGHTMUSH = 2,
-    BOUNCEMUSH = 3,
-    BLOCKTREE = 4
-}
+//public enum SeedType
+//{
+//    LIGHTGRASS = 1,
+//    LIGHTMUSH = 2,
+//    BOUNCEMUSH = 3,
+//    BLOCKTREE = 4
+//}
 
 abstract public class StartPoint : MonoBehaviour
 {
     public bool isActivate = false;
-    public SeedType type;
     public GameObject deactivate;
     public WaterColor color;
     public Vector3 centerPointOffset;
+
+    public GameObject activatedGrass;
+    public GameObject deactivatedGrass;
 
     private Vector3 hitPoint;
 
@@ -46,5 +48,20 @@ abstract public class StartPoint : MonoBehaviour
         Gizmos.color = Color.black;
         Gizmos.DrawLine(transform.position + transform.TransformVector(centerPointOffset) + transform.TransformDirection(Vector3.up) * 0.5f, hitPoint);
         
+    }
+
+    public GameObject GetGrowingGrass(int state)
+    {
+        if(state == 2)
+        {
+            return activatedGrass;
+        }else if(state == 3)
+        {
+            return deactivatedGrass;
+        }
+        else
+        {
+            return null;
+        }
     }
 }

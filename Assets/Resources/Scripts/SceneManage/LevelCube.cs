@@ -24,16 +24,28 @@ public class LevelCube : GridSplitter
     {
         FindNearGrids();
         GameManager.AddScanCube(this);
+        LightDetect();
     }
 
-    void Test()
+    public void UpdateGridVisual()
     {
-        for(int i = 0; i < levelGrids.Length; i++)
+        //visual
+        foreach(LevelGrid grid in levelGrids)
         {
-            //GameObject grid = Instantiate(testPrefab, levelGrids[i].position, levelGrids[i].rotation, transform);
-            //grid.layer = 9;
+            if(grid.type == GridType.GROUND)
+            {
+                if(grid.state == 1)
+                {
+                    //TODO:无起点连接visual
+                }else if(grid.state >= 2)
+                {
+                    //获得所有type的模型
+                    
+                    //随机分布这些模型
+                }
+                
+            }
         }
-        
     }
 
     //private void OnDrawGizmos()
@@ -44,7 +56,7 @@ public class LevelCube : GridSplitter
     //    //    Gizmos.DrawLine(levelGrids[i].position, levelGrids[i].position + levelGrids[i].direction);
     //    //}
     //}
-    
+
     //输入世界坐标，返回对应位置的LevelGrid对象
     public override LevelGrid GetGridAtPosition(Vector3 position)
     {
@@ -115,8 +127,6 @@ public class LevelCube : GridSplitter
         {
             type = GridType.GLASS;
         }
-
-
 
         for (int x = 0; x < cubeSize.x; x++)
         {

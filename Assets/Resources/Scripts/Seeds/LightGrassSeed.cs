@@ -6,9 +6,12 @@ public class LightGrassSeed : StartPoint
 {
     public override void Activate()
     {
-        isActivate = true;
-        //TODO:更换模型
-        //TODO:告知activate？
+        if (!isActivate)
+        {
+            isActivate = true;
+            //TODO:更换模型
+            //TODO:告知activate？
+        }
     }
 
     public override void Deactivate()
@@ -22,7 +25,7 @@ public class LightGrassSeed : StartPoint
     void Start()
     {
         InitializeGrid();
-        type = SeedType.LIGHTGRASS;
+        //type = SeedType.LIGHTGRASS;
     }
 
 }

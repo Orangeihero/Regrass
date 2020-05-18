@@ -20,11 +20,11 @@ public class EndPoint : GridSplitter
         levelGrids[0].state = 1;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         FindNearGrids();
         GameManager.AddScanCube(this);
+        LightDetect();
     }
 
     private void Awake()

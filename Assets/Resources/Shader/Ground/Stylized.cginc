@@ -51,7 +51,7 @@ float4 frag(v2f i):SV_TARGET0{
 	//}
 	
 	fixed3 diffuseColor = tex2D(_RampTex,fixed2(halfLambert,halfLambert)).rgb * _Diffuse.rgb * tex2D(_GridTex,i.uv).rgb;
-	if(shadow < 0.3){
+	if(shadow < 0.2){
 		diffuseColor *= 0.2;}
 	//}else if(shadow < 0.4){
 	//	diffuseColor *= 0.2 + (shadow - 0.3) * 0.8;

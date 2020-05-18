@@ -56,7 +56,6 @@ abstract public class GridSplitter : MonoBehaviour
         }
     }
 
-
     private void FindNearGridOnDirection(LevelGrid grid, NearGridDirection dir)
     {
         int layerMask = 1 << 9;
@@ -116,4 +115,8 @@ abstract public class GridSplitter : MonoBehaviour
         }
     }
 
+    protected void LightDetect()
+    {
+        //TODO:光照检测，确定每个LevelGrid的luminance
+    }
 }
