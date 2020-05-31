@@ -4,28 +4,50 @@ using UnityEngine;
 
 public class LightGrassSeed : StartPoint
 {
-    public override void Activate()
-    {
-        if (!isActivate)
-        {
-            isActivate = true;
-            //TODO:更换模型
-            //TODO:告知activate？
-        }
-    }
-
-    public override void Deactivate()
-    {
-        isActivate = false;
-        //TODO:更换模型
-        //TODO：告知？
-    }
-
+    private List<Door> doors = new List<Door>();
     // Start is called before the first frame update
     void Start()
     {
         InitializeGrid();
-        //type = SeedType.LIGHTGRASS;
+        InitializeDoor();
     }
 
+    override public void Activate()
+    {
+        ChangeModel(true);
+        SeasameDoor();
+    }
+
+    override public void Deactivate()
+    {
+        ChangeModel(false);
+        SeasameDoor();
+    }
+
+    private void SeasameDoor()
+    {
+        if (isActivate)
+        {
+            foreach (Door door in doors)
+            {
+                door.openLock();
+            }
+        }
+        else
+        {
+            foreach (Door door in doors)
+            {
+                door.addLock();
+            }
+        }
+    }
+
+    private void InitializeDoor()
+    {
+        //TODO:加门（或许直接手动）
+        foreach (Door door in doors)
+        {
+            door.addLock();
+        }
+    }
 }
