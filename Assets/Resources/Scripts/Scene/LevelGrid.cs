@@ -34,7 +34,7 @@ public class LevelGrid
     private LevelGrid[] nearGrids = new LevelGrid[4]; //邻接格子
     
     //地块属性
-    public int luminance = 0;//亮度,0暗，1适中，2亮
+    public int luminance = 1;//亮度,0暗，1适中，2亮
     public int state = 0; // 0是没有被染色，1是被染色，2是染色且与未激活起点连接，3是染色且与激活起点连接
     public GridType type; //地面类型，包括地面、玻璃、起点、终点
     public WaterColor groundColor = WaterColor.BLUE; //地面颜色，包括蓝色、红色

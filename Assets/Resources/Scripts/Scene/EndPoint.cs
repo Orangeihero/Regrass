@@ -5,19 +5,46 @@ using UnityEngine;
 public class EndPoint : GridSplitter
 {
     public WaterColor color;
+    private Vector3 startPoint;
+    private Vector3 cubeSize;
 
     public override LevelGrid GetGridAtPosition(Vector3 position)
     {
-        return levelGrids[0];
+        Vector3 offset = position - startPoint;
+        offset.x = Mathf.Floor(offset.x);
+        offset.z = Mathf.Floor(offset.z);
+        float index = offset.x * cubeSize.z + offset.z;
+        if(index < 0 || index >= levelGrids.Length)
+        {
+            return null;
+        }
+        return levelGrids[(int)index];
     }
 
     protected override void SplitGrid()
     {
-        levelGrids = new LevelGrid[1];
-        Vector3 gridPosition = transform.position + new Vector3(0.5f, 1, -0.5f);
-        levelGrids[0] = new LevelGrid(gridPosition, Vector3.up, GridType.WATER);
-        levelGrids[0].groundColor = color;
-        levelGrids[0].state = 1;
+        Vector3[] vertices = GetComponent<MeshFilter>().mesh.vertices;
+        cubeSize = vertices[1] - vertices[0] + vertices[2] - vertices[0] + vertices[1] - vertices[5];
+        cubeSize.y = 1;
+        Debug.Log(cubeSize);
+        startPoint = transform.TransformPoint(vertices[9]);
+        int gridCounts = (int)cubeSize.x * (int)cubeSize.z;
+        levelGrids = new LevelGrid[gridCounts];
+        int gridIndex = 0;
+        GridType type = GridType.WATER;
+
+        for (int x = 0; x < (int)cubeSize.x; x++)
+        {
+            for (int z = 0; z < (int)cubeSize.z; z++, gridIndex++)
+            {
+                Vector3 position = startPoint + new Vector3(x, 1, z) + new Vector3(0.5f, 0, 0.5f);
+                Debug.Log($"{x} : {z} -- {gridIndex} -- {cubeSize.x} -- {cubeSize.z}");
+                levelGrids[gridIndex] = new LevelGrid(position, Vector3.up, type);
+                levelGrids[gridIndex].state = 1;
+                levelGrids[gridIndex].groundColor = color;
+            }
+        }
+
     }
 
     void Start()
@@ -31,5 +58,12 @@ public class EndPoint : GridSplitter
     {
         SplitGrid();
         gameObject.layer = 9;
+        SetCollideBox();
+    }
+
+    private void SetCollideBox()
+    {
+        GetComponent<BoxCollider>().size = cubeSize;
+        GetComponent<BoxCollider>().center = transform.InverseTransformPoint(startPoint + new Vector3(cubeSize.x / 2, 0.5f, cubeSize.z / 2));
     }
 }

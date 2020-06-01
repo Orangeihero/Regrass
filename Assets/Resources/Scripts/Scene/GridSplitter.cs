@@ -56,7 +56,7 @@ abstract public class GridSplitter : MonoBehaviour
     }
     private void FindNearGridOnDirection(LevelGrid grid, NearGridDirection dir)
     {
-        int layerMask = 1 << 9;
+        int layerMask = 1 << 9 | 1 << 10;
         RaycastHit hit;
         Vector3 raycastPos = grid.position + 0.5f * grid.direction;
         Quaternion rotation = Quaternion.FromToRotation(Vector3.up, grid.direction);
@@ -114,6 +114,61 @@ abstract public class GridSplitter : MonoBehaviour
     protected void LightDetect()
     {
         //TODO:光照检测，确定每个LevelGrid的luminance
+        Quaternion lightDir = GameObject.Find("Directional Light").GetComponent<Transform>().rotation;
+        Vector3 direction = lightDir * Vector3.back;
+        
+        foreach (LevelGrid grid in levelGrids)
+        {
+            //判断是否光线是否被遮挡
+            int layerMask = 1 << 9;
+            RaycastHit hit;
+            Vector3 raycastPos = grid.position;
+            Quaternion rotation = Quaternion.FromToRotation(Vector3.up, grid.direction);
+
+            //中心点和四个顶点向光源做raycast
+            if (Physics.Raycast(raycastPos, direction, out hit, 100f, layerMask))
+            {
+                grid.luminance = 0;
+            }
+            else if (Physics.Raycast(raycastPos + 0.4f * (rotation * Vector3.back + rotation * Vector3.left), direction, out hit, 100f, layerMask))
+            {
+                grid.luminance = 0;
+            }
+            else if (Physics.Raycast(raycastPos + 0.4f * (rotation * Vector3.back + rotation * Vector3.right), direction, out hit, 100f, layerMask))
+            {
+                grid.luminance = 0;
+            }
+            else if (Physics.Raycast(raycastPos + 0.4f * (rotation * Vector3.forward + rotation * Vector3.left), direction, out hit, 100f, layerMask))
+            {
+                grid.luminance = 0;
+            }
+            else if (Physics.Raycast(raycastPos + 0.4f * (rotation * Vector3.forward + rotation * Vector3.right), direction, out hit, 100f, layerMask))
+            {
+                grid.luminance = 0;
+            }
+
+            //检测面在同一个平面上不视为遮挡
+            if (grid.luminance == 0) {
+                GridSplitter cube = hit.collider.GetComponent<GridSplitter>();
+                LevelGrid tmpGrid = cube.GetGridAtPosition(hit.point);
+                if (tmpGrid != null)
+                {
+                    if (tmpGrid.direction == grid.direction && Vector3.Dot(hit.point, grid.direction) == Vector3.Dot(raycastPos, grid.direction))
+                    {
+                        grid.luminance = 1;
+                    }
+                }
+            }
+
+            //点积法线和光照方向计算光照强度
+            if (grid.luminance == 1) {
+                double intensity = (Vector3.Dot(grid.direction, (lightDir * Vector3.back)) * 0.5f) + 0.5f;
+                // Debug.Log(intensity);
+                if(intensity > 0.5){
+                    grid.luminance = 2;
+                }
+            }
+        }
     }
     public void VisualUpdateRequest()
     {

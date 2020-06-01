@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
 
     public static void VisualUpdate()
     {
+        Debug.Log("Visual Update");
         updateGridVisual();
     }
 }

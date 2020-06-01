@@ -17,7 +17,12 @@ public class LevelCube : GridSplitter
     private void Awake()
     {
         SplitGrid();
-        gameObject.layer = 9;
+        if (GetComponent<MeshRenderer>().material.name=="GroundMat (Instance)"){
+            gameObject.layer = 9;
+        }
+        else {
+            gameObject.layer = 10;
+        }
         SetupLawn();
     }
     void Start()
@@ -49,6 +54,7 @@ public class LevelCube : GridSplitter
     public override LevelGrid GetGridAtPosition(Vector3 position)
     {
         Vector3 offset = position - startPoint;
+        int index;
         if (Mathf.Abs(offset.x - 0) < 0.01f || Mathf.Abs(offset.x - cubeSize.x) < 0.01f)
         {
             offset.y = Mathf.Floor(offset.y);
@@ -56,12 +62,12 @@ public class LevelCube : GridSplitter
             if (Mathf.Abs(offset.x - cubeSize.x) < 0.01f)
             {
                 float indexoffset = cubeSize.x * cubeSize.y * 2 + cubeSize.x * cubeSize.z * 2;
-                return levelGrids[(int)indexoffset + (int)offset.y * (int)cubeSize.z * 2 + (int)offset.z * 2];
+                index = (int)indexoffset + (int)offset.y * (int)cubeSize.z * 2 + (int)offset.z * 2;
             }
             else
             {
                 float indexoffset = cubeSize.x * cubeSize.y * 2 + cubeSize.x * cubeSize.z * 2;
-                return levelGrids[(int)indexoffset + (int)offset.y * (int)cubeSize.z * 2 + (int)offset.z * 2 + 1];
+                index = (int)indexoffset + (int)offset.y * (int)cubeSize.z * 2 + (int)offset.z * 2 + 1;
             }
         }
         else if (Mathf.Abs(offset.y - 0) < 0.01f || Mathf.Abs(offset.y - cubeSize.y) < 0.01f) 
@@ -71,12 +77,12 @@ public class LevelCube : GridSplitter
             if (Mathf.Abs(offset.y - cubeSize.y) < 0.01f)
             {
                 float indexoffset = cubeSize.x * cubeSize.y * 2;
-                return levelGrids[(int)indexoffset + (int)offset.x * (int)cubeSize.z * 2 + (int)offset.z * 2];
+                index = (int)indexoffset + (int)offset.x * (int)cubeSize.z * 2 + (int)offset.z * 2;
             }
             else
             {
                 float indexoffset = cubeSize.x * cubeSize.y * 2;
-                return levelGrids[(int)indexoffset + (int)offset.x * (int)cubeSize.z * 2 + (int)offset.z * 2 + 1];
+                index = (int)indexoffset + (int)offset.x * (int)cubeSize.z * 2 + (int)offset.z * 2 + 1;
             }
         }
         else
@@ -86,13 +92,22 @@ public class LevelCube : GridSplitter
             if (Mathf.Abs(offset.z - cubeSize.z) < 0.01f)
             {
                 float indexoffset = 0;
-                return levelGrids[(int)indexoffset + (int)offset.x * (int)cubeSize.y * 2 + (int)offset.y * 2];
+                index = (int)indexoffset + (int)offset.x * (int)cubeSize.y * 2 + (int)offset.y * 2;
             }
             else
             {
                 float indexoffset = 0;
-                return levelGrids[(int)indexoffset + (int)offset.x * (int)cubeSize.y * 2 + (int)offset.y * 2 + 1];
+                index = (int)indexoffset + (int)offset.x * (int)cubeSize.y * 2 + (int)offset.y * 2 + 1;
             }
+        }
+
+        if(index < 0 || index >= levelGrids.Length)
+        {
+            return null;
+        }
+        else
+        {
+            return levelGrids[index];
         }
     }
     protected override void SplitGrid()

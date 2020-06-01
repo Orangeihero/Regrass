@@ -21,7 +21,7 @@ MonoBehaviour:
     value: 9.6
   _NearColor:
     overrideState: 1
-    value: {r: 1, g: 0.49123323, b: 0.07075471, a: 0.11372549}
+    value: {r: 1, g: 0.4514768, b: 0, a: 0.11372549}
   _FarColor:
     overrideState: 1
     value: {r: 0, g: 0.53930986, b: 0.9716981, a: 0.50980395}
@@ -286,7 +286,7 @@ MonoBehaviour:
     value: 0
   saturation:
     overrideState: 1
-    value: 39
+    value: 4
   brightness:
     overrideState: 0
     value: 0
@@ -295,16 +295,16 @@ MonoBehaviour:
     value: 0.98
   contrast:
     overrideState: 1
-    value: 14
+    value: 18
   mixerRedOutRedIn:
     overrideState: 1
-    value: 115
+    value: 100
   mixerRedOutGreenIn:
     overrideState: 1
-    value: 37
+    value: 0
   mixerRedOutBlueIn:
     overrideState: 1
-    value: -95
+    value: -68
   mixerGreenOutRedIn:
     overrideState: 0
     value: 0

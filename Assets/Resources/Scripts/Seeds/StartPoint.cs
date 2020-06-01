@@ -24,7 +24,7 @@ abstract public class StartPoint : MonoBehaviour
 
     protected void InitializeGrid()
     {
-        int layerMask = 1 << 9;
+        int layerMask = 1 << 9 | 1 << 10;
         RaycastHit hit;
         if (Physics.Raycast(transform.position + transform.TransformVector(centerPointOffset) + transform.TransformDirection(Vector3.up) * 0.5f, transform.TransformDirection(Vector3.down), out hit, 1.2f, layerMask))
         {

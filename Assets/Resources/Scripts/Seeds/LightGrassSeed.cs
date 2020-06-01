@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LightGrassSeed : StartPoint
 {
-    private List<Door> doors = new List<Door>();
+    public List<Door> doors = new List<Door>();
     // Start is called before the first frame update
     void Start()
     {
