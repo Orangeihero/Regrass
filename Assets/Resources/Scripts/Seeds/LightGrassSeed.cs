@@ -8,6 +8,7 @@ public class LightGrassSeed : StartPoint
     // Start is called before the first frame update
     void Start()
     {
+        seedType = SeedType.LIGHTGRASS;
         InitializeGrid();
         InitializeDoor();
     }

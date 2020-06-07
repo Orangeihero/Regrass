@@ -10,6 +10,7 @@ public class BlockTreeSeed : StartPoint
     // Start is called before the first frame update
     void Start()
     {
+        seedType = SeedType.BLOCKTREE;
         InitializeGrid();
         RecalculateLight();
     }

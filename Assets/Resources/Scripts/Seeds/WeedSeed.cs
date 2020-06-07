@@ -15,6 +15,7 @@ public class WeedSeed : StartPoint
 
     private void Start()
     {
+        seedType = SeedType.WEED;
         InitializeGrid();
     }
 }

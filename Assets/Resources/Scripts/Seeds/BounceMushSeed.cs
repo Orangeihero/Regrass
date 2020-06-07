@@ -7,6 +7,7 @@ public class BounceMushSeed : StartPoint
     // Start is called before the first frame update
     void Start()
     {
+        seedType = SeedType.BOUNCEMUSH;
         InitializeGrid();
     }
 
