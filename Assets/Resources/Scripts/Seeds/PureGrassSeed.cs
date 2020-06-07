@@ -19,6 +19,7 @@ public class PureGrassSeed : StartPoint
 
     private void Start()
     {
+        seedType = SeedType.PUREGRASS;
         InitializeGrid();
     }
 }

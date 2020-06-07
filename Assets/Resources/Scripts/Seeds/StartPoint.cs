@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//public enum SeedType
-//{
-//    LIGHTGRASS = 1,
-//    LIGHTMUSH = 2,
-//    BOUNCEMUSH = 3,
-//    BLOCKTREE = 4
-//}
+public enum SeedType
+{
+    LIGHTGRASS = 1,
+    PUREGRASS = 2,
+    BOUNCEMUSH = 3,
+    BLOCKTREE = 4,
+    WEED = 5
+}
 
 abstract public class StartPoint : MonoBehaviour
 {
@@ -19,6 +20,7 @@ abstract public class StartPoint : MonoBehaviour
 
     public GameObject activatedGrass;
     public GameObject deactivatedGrass;
+    public SeedType seedType;
 
     private Vector3 hitPoint;
 
@@ -34,6 +36,7 @@ abstract public class StartPoint : MonoBehaviour
             grid.groundColor = color;
             grid.state = 2;
             grid.seed = this;
+            grid.grassStates[(int)seedType - 1] = 1;
         }
     }
 
