@@ -18,10 +18,11 @@ public enum WaterColor
 
 public enum GridType
 {
-    GROUND = 1,
+    SOIL = 1,
     SEED = 2,
     WATER = 3,
-    GLASS = 4
+    GLASS = 4,
+    GROUND = 5
 }
 
 
@@ -40,7 +41,10 @@ public class LevelGrid
     public WaterColor groundColor = WaterColor.BLUE; //地面颜色，包括蓝色、红色
 
     //其他
-    public List<int> grassTypes = new List<int>();//当前地块上生长的植物类型，1表示光草，2表示光菇，3表示弹力菇，4表示方块树
+    public StartPoint seed;
+    public static int GRASSTYPE = 4;
+    public int[] grassStates = new int[GRASSTYPE];
+    //public List<int> grassTypes = new List<int>();//当前地块上生长的植物类型，1表示光草，2表示光菇，3表示弹力菇，4表示方块树
 
     //记录和哪个起点相连
 
@@ -54,7 +58,7 @@ public class LevelGrid
     //显示用
     public bool colorOn = false;
 
-    public LevelGrid(Vector3 p, Vector3 d, GridType t, int l = 1) //构造函数,光照目前还没有用，不要管
+    public LevelGrid(Vector3 p, Vector3 d, GridType t, int l = 1) 
     {
         this.position = p;
         this.direction = d;
@@ -88,7 +92,7 @@ public class LevelGrid
     public void SprayWater(WaterColor waterColor)
     {
         //不是可染色的地面或已染色
-        if (type != GridType.GROUND || (state > 0 && groundColor == waterColor)) return;
+        if (type != GridType.SOIL || (state > 0 && groundColor == waterColor)) return;
 
         GameManager.VisualUpdate();
         colorOn = false;
@@ -98,21 +102,23 @@ public class LevelGrid
 
         //更新地块颜色
         groundColor = waterColor;
-        //判断现连通区域
+        state = 1;
+        int[] change_state = new int[GRASSTYPE];
+            //判断现连通区域
         int count = 0;
-        bool is_start = false, is_active = false;
-        LevelGrid tmp;
-        for (int i = 1; i <= 4; i++)
-        {
-            tmp = GetNearGrid((NearGridDirection)i);
-            if (tmp == null) continue;
-            if (tmp.state > 0 && tmp.groundColor == groundColor)
+            bool is_start = false, is_active = false;
+            LevelGrid tmp;
+            for (int i = 1; i <= 4; i++)
             {
-                count++;
-                if (tmp.state == 2) is_start = true;
-                else if (tmp.state == 3) is_active = true;
+                tmp = GetNearGrid((NearGridDirection)i);
+                if (tmp == null) continue;
+                if (tmp.state > 0 && tmp.groundColor == groundColor)
+                {
+                    count++;
+                    if (tmp.state == 2) is_start = true;
+                    else if (tmp.state == 3) is_active = true;
+                }
             }
-        }
 
         if (count <= 0) //周围无同色地块
         {
@@ -127,7 +133,7 @@ public class LevelGrid
                 else
                 {
                     GameManager.ResetScanGrid();
-                    ScanGrids();   //四周与起点联通的同色地块多于一个or还有其他类型地块
+                    ScanGrids();
                 }
                 //else state = 3;
             }
@@ -135,22 +141,18 @@ public class LevelGrid
             {   //四周地块的状态只有1或3
                 if (is_active == true)
                     ChangeState(3);
-                //{
-                //    state = 1;
-                //    GameManager.ResetScanGrid();
-                //    ScanGrids();
-                //}
-                else state = 1;
+                else
+                {
+                    state = 1;
+                }
             }
         }
-
     }
 
     public void ClearGrid()
     {
         //不是可更改染色状态的地面或原本无色
-        if (type != GridType.GROUND || state == 0) return;
-        grassTypes.Clear();
+        if (type != GridType.SOIL || state == 0) return;
         GameManager.VisualUpdate();
 
         int count = 0;
@@ -230,11 +232,20 @@ public class LevelGrid
         {
             colorOn = false;
         }
+
         state = new_state;
         bool is_start = false;
         if (type == GridType.SEED)
         {
-            if (new_state < 2) state = 2;  //起点状态只能是2or3
+            if (new_state <= 2)
+            {
+                state = 2;  //起点状态只能是2or3
+                seed.Deactivate();
+            }
+            else if (new_state == 3)
+            {
+                seed.Activate();
+            }
             is_start = true;
         }
 

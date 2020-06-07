@@ -84,6 +84,7 @@ public class FirstPerosonShooting : MonoBehaviour
                         if(selectingGrid != null)
                         {
                             selectingGrid.SprayWater(waterColor);
+                            selectingCube.SprayWaterAtPosition(targetPoint, waterColor);
                         }
                         //WaterAnimation();
 
@@ -114,7 +115,16 @@ public class FirstPerosonShooting : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, waterGunRange, layerMask))
         {
             targetPoint = hit.point;
-            selectingGrid = hit.collider.GetComponent<GridSplitter>().GetGridAtPosition(hit.point);
+            selectingCube = hit.collider.GetComponent<LevelCube>();
+            if(selectingCube != null)
+            {
+                selectingGrid = selectingCube.GetGridAtPosition(hit.point);
+            }
+            else
+            {
+                selectingGrid = null;
+            }
+            //selectingGrid = hit.collider.GetComponent<GridSplitter>().GetGridAtPosition(hit.point);
             //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
         }
         else
@@ -127,52 +137,56 @@ public class FirstPerosonShooting : MonoBehaviour
         //高亮
         HighlightGrid();
 
-        //if(selectingGrid != null)
-        //{
-        //    debugText.text = $"Position:{selectingGrid.position}   State:{selectingGrid.state}   Luminance:{selectingGrid.luminance}   Type:{selectingGrid.type}";
-        //    LevelGrid grid = selectingGrid.GetNearGrid(NearGridDirection.LEFT);
-        //    if (grid != null)
-        //    {
-        //        debugText.text += $"\nLEFT:{grid.position} - {grid.groundColor}";
-        //    }
-        //    else
-        //    {
-        //        debugText.text += "\nLEFT:NULL";
-        //    }
-        //    grid = selectingGrid.GetNearGrid(NearGridDirection.RIGHT);
-        //    if (grid != null)
-        //    {
-        //        debugText.text += $"\nRIGHT:{grid.position} - {grid.groundColor}";
-        //    }
-        //    else
-        //    {
-        //        debugText.text += "\nRIGHT:NULL";
-        //    }
-        //    grid = selectingGrid.GetNearGrid(NearGridDirection.FORWARD);
-        //    if (grid != null)
-        //    {
-        //        debugText.text += $"\nFORWARD:{grid.position} - {grid.groundColor}";
-        //    }
-        //    else
-        //    {
-        //        debugText.text += "\nFORWARD:NULL";
-        //    }
-        //    grid = selectingGrid.GetNearGrid(NearGridDirection.BACK);
-        //    if (grid != null)
-        //    {
-        //        debugText.text += $"\nBACK:{grid.position} - {grid.groundColor}";
-        //    }
-        //    else
-        //    {
-        //        debugText.text += "\nBACK:NULL";
-        //    }
+        if (selectingGrid != null)
+        {
+            debugText.text = $"Position:{selectingGrid.position}   State:{selectingGrid.state}   Luminance:{selectingGrid.luminance}   Type:{selectingGrid.type}";
+            for(int i = 0;i < selectingGrid.grassStates.Length; i++)
+            {
+                debugText.text += $"\ngrassState[{i}] = {selectingGrid.grassStates[i]}";
+            }
+            //LevelGrid grid = selectingGrid.GetNearGrid(NearGridDirection.LEFT);
+            //if (grid != null)
+            //{
+            //    debugText.text += $"\nLEFT:{grid.position} - {grid.groundColor}";
+            //}
+            //else
+            //{
+            //    debugText.text += "\nLEFT:NULL";
+            //}
+            //grid = selectingGrid.GetNearGrid(NearGridDirection.RIGHT);
+            //if (grid != null)
+            //{
+            //    debugText.text += $"\nRIGHT:{grid.position} - {grid.groundColor}";
+            //}
+            //else
+            //{
+            //    debugText.text += "\nRIGHT:NULL";
+            //}
+            //grid = selectingGrid.GetNearGrid(NearGridDirection.FORWARD);
+            //if (grid != null)
+            //{
+            //    debugText.text += $"\nFORWARD:{grid.position} - {grid.groundColor}";
+            //}
+            //else
+            //{
+            //    debugText.text += "\nFORWARD:NULL";
+            //}
+            //grid = selectingGrid.GetNearGrid(NearGridDirection.BACK);
+            //if (grid != null)
+            //{
+            //    debugText.text += $"\nBACK:{grid.position} - {grid.groundColor}";
+            //}
+            //else
+            //{
+            //    debugText.text += "\nBACK:NULL";
+            //}
 
-        //}
-        //else
-        //{
-        //    debugText.text = "NULL";
-        //}
-        
+        }
+        else
+        {
+            debugText.text = "NULL";
+        }
+
 
     }
 
@@ -242,28 +256,17 @@ public class FirstPerosonShooting : MonoBehaviour
                 hl.transform.eulerAngles = new Vector3(90, 0, 90);
             }
             hl.transform.position = selectingGrid.position;
-            if(selectingGrid.luminance == 0)
+            if (selectingGrid.type == GridType.SOIL || selectingGrid.type == GridType.GROUND)
             {
-                hl.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Material/SceneMats/Debug/BlackDebugMat");
-            }else if(selectingGrid.luminance == 1)
-            {
-                hl.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Material/SceneMats/Debug/GreyDebugMat");
+                if (waterColor == WaterColor.BLUE)
+                    hl.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Material/SceneMats/Water/BlueWaterMat");
+                else
+                    hl.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Material/SceneMats/Water/RedWaterMat");
             }
-            else
+            else if (selectingGrid.type == GridType.GLASS)
             {
-                hl.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Material/SceneMats/Debug/WhiteDebugMat");
+                hl.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Material/SceneMats/Water/GrayMat");
             }
-            //if (selectingGrid.type == GridType.GROUND)
-            //{
-            //    if (waterColor == WaterColor.BLUE)
-            //        hl.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Material/SceneMats/Water/BlueWaterMat");
-            //    else
-            //        hl.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Material/SceneMats/Water/RedWaterMat");
-            //}
-            //else if (selectingGrid.type == GridType.GLASS)
-            //{
-            //    hl.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Material/SceneMats/Water/GrayMat");
-            //}
         }
         else hl.SetActive(false);
 

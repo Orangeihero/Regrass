@@ -346,6 +346,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActivate: 0
-  type: 0
   deactivate: {fileID: 0}
   color: 2
+  centerPointOffset: {x: 0.5, y: 0, z: 0.5}
+  activatedGrass: {fileID: 0}
+  deactivatedGrass: {fileID: 0}
+  doors: []

@@ -8,6 +8,7 @@ public class Door : MonoBehaviour
     // Start is called before the first frame update
     public void openLock()
     {
+        Debug.Log($"Lock:{lockCount}");
         lockCount--;
         if(lockCount == 0)
         {
@@ -18,5 +19,10 @@ public class Door : MonoBehaviour
     public void addLock()
     {
         lockCount++;
+    }
+
+    public void Open()
+    {
+        gameObject.SetActive(false);
     }
 }

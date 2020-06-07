@@ -14,14 +14,12 @@ public class LightGrassSeed : StartPoint
 
     override public void Activate()
     {
-        ChangeModel(true);
-        SeasameDoor();
+        if(ChangeModel(true))   SeasameDoor();
     }
 
     override public void Deactivate()
     {
-        ChangeModel(false);
-        SeasameDoor();
+        if(ChangeModel(false))  SeasameDoor();
     }
 
     private void SeasameDoor()

@@ -24,7 +24,7 @@ abstract public class StartPoint : MonoBehaviour
 
     protected void InitializeGrid()
     {
-        int layerMask = 1 << 9 | 1 << 10;
+        int layerMask = 1 << 9;
         RaycastHit hit;
         if (Physics.Raycast(transform.position + transform.TransformVector(centerPointOffset) + transform.TransformDirection(Vector3.up) * 0.5f, transform.TransformDirection(Vector3.down), out hit, 1.2f, layerMask))
         {
@@ -33,6 +33,7 @@ abstract public class StartPoint : MonoBehaviour
             grid.type = GridType.SEED;
             grid.groundColor = color;
             grid.state = 2;
+            grid.seed = this;
         }
     }
 
@@ -62,13 +63,18 @@ abstract public class StartPoint : MonoBehaviour
         }
     }
 
-    protected void ChangeModel(bool b)
+    protected bool ChangeModel(bool b)
     {
         if(isActivate != b)
         {
             isActivate = b;
-            activatedGrass.SetActive(isActivate);
-            deactivatedGrass.SetActive(!isActivate);
+            //activatedGrass.SetActive(isActivate);
+            //deactivatedGrass.SetActive(!isActivate);
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

@@ -51,7 +51,7 @@ public class EndPoint : GridSplitter
     {
         FindNearGrids();
         GameManager.AddScanCube(this);
-        LightDetect();
+        //LightDetect();
     }
 
     private void Awake()

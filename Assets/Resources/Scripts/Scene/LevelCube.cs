@@ -13,23 +13,22 @@ public class LevelCube : GridSplitter
     private Vector3 startPoint;
     private Vector3 cubeSize;
     private Lawn[] lawns;
+    private GridType type;
+    private GameObject fencePrefab;
 
     private void Awake()
     {
+        fencePrefab = Resources.Load<GameObject>("Prefabs/FencePrefab");
+        InitializeType();
         SplitGrid();
-        if (GetComponent<MeshRenderer>().material.name=="GroundMat (Instance)"){
-            gameObject.layer = 9;
-        }
-        else {
-            gameObject.layer = 10;
-        }
         SetupLawn();
     }
     void Start()
     {
         FindNearGrids();
         GameManager.AddScanCube(this);
-        LightDetect();
+        //LightDetect();
+        //if(type == GridType.SOIL) AddFence();
     }
     private void Update()
     {
@@ -44,7 +43,7 @@ public class LevelCube : GridSplitter
         //visual
         foreach (LevelGrid grid in levelGrids)
         {
-            if (grid.type == GridType.GROUND)
+            if (grid.type == GridType.SOIL || grid.type == GridType.GROUND)
             {
                 UpdateLawn(grid);
             }
@@ -119,16 +118,6 @@ public class LevelCube : GridSplitter
         int gridCounts = (int)cubeSize.x * (int)cubeSize.y * 2 + (int)cubeSize.x * (int)cubeSize.z * 2 + (int)cubeSize.y * (int)cubeSize.z * 2;
         levelGrids = new LevelGrid[gridCounts];
         int gridIndex = 0;
-        GridType type;
-
-        if (GetComponent<MeshRenderer>().material.name == "GroundMat (Instance)") 
-        {
-            type = GridType.GROUND;
-        }
-        else
-        {
-            type = GridType.GLASS;
-        }
 
         for (int x = 0; x < cubeSize.x; x++)
         {
@@ -166,7 +155,7 @@ public class LevelCube : GridSplitter
     //Lawn 相关
     private void SetupLawn()
     {
-        if (GetComponent<MeshRenderer>().material.name == "GroundMat (Instance)")
+        if (type == GridType.SOIL)
         {
             lawns = new Lawn[6];
             InstantiateLawn(startPoint, cubeSize.x, cubeSize.y, Vector3.back, 0);
@@ -186,9 +175,9 @@ public class LevelCube : GridSplitter
     }
     public void SprayWaterAtPosition(Vector3 pos, WaterColor color)
     {
-        if (GetComponent<MeshRenderer>().material.name == "GroundMat (Instance)")
+        LevelGrid grid = GetGridAtPosition(pos);
+        if (grid.type == GridType.SOIL)
         {
-            LevelGrid grid = GetGridAtPosition(pos);
             Vector2 uv = GetUVAtPosition(grid, pos);
             Lawn lawn = GetLawnAtPosition(grid);
             if (lawn != null)
@@ -201,8 +190,26 @@ public class LevelCube : GridSplitter
     {
         Vector2 uv = GetUVAtPosition(grid, grid.position);
         Lawn lawn = GetLawnAtPosition(grid);
-        lawn.DrawBlackSquareAtPosition(uv);
+        lawn.ClearAtPosition(uv);
     }
+
+    private void AddFence()
+    {
+        foreach(LevelGrid grid in levelGrids)
+        {
+            for (int i = 1; i <= 4; i++)
+            {
+                LevelGrid tmp = grid.GetNearGrid((NearGridDirection)i);
+                if (tmp == null) continue;
+                if (tmp.type != GridType.SOIL || tmp.type != GridType.WATER)
+                {
+                    Instantiate(fencePrefab, (grid.position + tmp.position) / 2, Quaternion.identity);
+                }
+            }
+
+        }
+    }
+
     private void UpdateLawn(LevelGrid grid)
     {
         Lawn lawn = GetLawnAtPosition(grid);
@@ -213,7 +220,7 @@ public class LevelCube : GridSplitter
             for (int i = 1; i <= 4; i++)
             {
                 LevelGrid tmp = grid.GetNearGrid((NearGridDirection)i);
-                if (tmp.state > 0 && grid.groundColor == tmp.groundColor)
+                if (tmp != null && tmp.state > 0 && grid.groundColor == tmp.groundColor)
                 {
                     nearGridColor[i - 1] = true;
                 }
@@ -284,6 +291,31 @@ public class LevelCube : GridSplitter
         else
         {
             return lawns[5];
+        }
+    }
+    private void InitializeType()
+    {
+        Debug.Log(GetComponent<MeshRenderer>().material.name);
+        switch (GetComponent<MeshRenderer>().material.name)
+        {
+            case "GroundMat (Instance)":
+                {
+                    type = GridType.GROUND;
+                    gameObject.layer = 9;
+                    break;
+                }
+            case "SoilMat (Instance)":
+                {
+                    type = GridType.SOIL;
+                    gameObject.layer = 9;
+                    break;
+                }
+            case "GlassMat (Instance)":
+                {
+                    type = GridType.GLASS;
+                    gameObject.layer = 10;
+                    break;
+                }
         }
     }
 }

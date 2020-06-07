@@ -15,7 +15,7 @@ public class Lawn : MonoBehaviour
     private int width, height;
 
     static public float segment = 5;
-    static private int gridSize = 30;
+    static private int gridSize = 32;
     static private Shader lawnShader;
     static private Texture2D brushTexture;
 
@@ -34,6 +34,7 @@ public class Lawn : MonoBehaviour
                 Debug.LogError("Failed to load texture");
             }
         }
+        GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
     }
 
     public void CreateMesh(Vector3 position, int width, int height, Vector3 normal)
@@ -79,7 +80,7 @@ public class Lawn : MonoBehaviour
                 tangents[index] = tangent;
                 if (i  == 0 || j  == 0 || j == m_height || i == m_width)
                 {
-                    colors[index] = new Color(0, 0, 0, 0);
+                    colors[index] = new Color(1, 1, 1, 1);
                 }
                 else
                 {
@@ -125,6 +126,16 @@ public class Lawn : MonoBehaviour
         }
         mask.Apply();
 
+        groundMask = new Texture2D(width * gridSize, height * gridSize);
+        for(int i = 0;i < width * gridSize; i++)
+        {
+            for(int j = 0; j < height * gridSize; j++)
+            {
+                groundMask.SetPixel(i, j, new Color(0.3f, 0, 0, 0));
+            }
+        }
+        groundMask.Apply();
+
         mesh = GetComponent<MeshFilter>().mesh = new Mesh();
         mesh.vertices = vertices;
         mesh.triangles = triangles;
@@ -135,7 +146,7 @@ public class Lawn : MonoBehaviour
 
         Material mat = GetComponent<MeshRenderer>().material = new Material(lawnShader);
         mat.SetTexture("_SpawnMask", mask);
-        //mat.SetTexture("_GroundMask", mask);
+        mat.SetTexture("_GroundMask", groundMask);
     }
 
     public void DrawGridAtPosition(Vector2 uv, WaterColor waterColor, int state, bool right = false, bool left = false, bool forward = false, bool back = false)
@@ -157,7 +168,7 @@ public class Lawn : MonoBehaviour
                     color.g = 0;
                 }
 
-                if (state == 1)
+                if (state <= 1)
                 {
                     color.r = 0.3f;
                 }
@@ -165,113 +176,20 @@ public class Lawn : MonoBehaviour
                 {
                     color.r = 0.6f;
                 }
+                else
+                {
+                    color.r = 1f;
+                }
 
                 if (color.a > 0)
                 {
                     color.a = 1;
                 }
-                mask.SetPixel((int)px, (int)py, color);
+                groundMask.SetPixel((int)px, (int)py, color);
             }
         }
-
-
-        ////画本体
-        //uv.x = uv.x * mask.width - 1;
-        //uv.y = uv.y * mask.height - 1;
-        //for (float i = 0; i < brushTexture.width; i++) 
-        //{
-        //    for (float j = 0; j < brushTexture.height; j++) 
-        //    {
-        //        float px = i + uv.x - brushTexture.width / 2;
-        //        float py = j + uv.y - brushTexture.height / 2;
-        //        Color brushColor = brushTexture.GetPixel((int)i, (int)j);
-        //        Color color = mask.GetPixel((int)px, (int)py) + brushColor;
-        //        if (color.a > 0)
-        //        {
-        //            color.a = 1;
-        //        }
-        //        mask.SetPixel((int)px, (int)py, color);
-        //    }
-        //}
-
-        //if (right)
-        //{
-        //    for (float i = 0; i < brushTexture.width / 2; i++)
-        //    {
-        //        for (float j = 0; j < brushTexture.height; j++)
-        //        {
-        //            float px = i + uv.x;
-        //            float py = j + uv.y - brushTexture.width / 2;
-        //            Color brushColor = brushTexture.GetPixel((int)i, (int)j);
-        //            Color color = mask.GetPixel((int)px, (int)py) + brushColor;
-        //            if (color.a > 0)
-        //            {
-        //                color.a = 1;
-        //            }
-        //            mask.SetPixel((int)px, (int)py, color);
-        //        }
-        //    }
-        //}
-
-        //if (left)
-        //{
-        //    for (float i = 0; i < brushTexture.width / 2; i++) 
-        //    {
-        //        for (float j = -brushTexture.height / 2; j < brushTexture.height / 2; j++)
-        //        {
-        //            float px = i + uv.x - brushTexture.width / 2;
-        //            float py = j + uv.y - brushTexture.height / 2;
-        //            Color brushColor = brushTexture.GetPixel((int)i, (int)j);
-        //            Color color = mask.GetPixel((int)px, (int)py) + brushColor;
-        //            if (color.a > 0)
-        //            {
-        //                color.a = 1;
-        //            }
-        //            mask.SetPixel((int)px, (int)py, color);
-        //        }
-        //    }
-        //}
-
-        //if (forward)
-        //{
-        //    for (float i = 0; i < brushTexture.width; i++)
-        //    {
-        //        for (float j = 0; j < brushTexture.height / 2; j++)
-        //        {
-        //            float px = i + uv.x - brushTexture.width / 2;
-        //            float py = j + uv.y;
-        //            Color brushColor = brushTexture.GetPixel((int)i, (int)j);
-        //            Color color = mask.GetPixel((int)px, (int)py) + brushColor;
-        //            if (color.a > 0)
-        //            {
-        //                color.a = 1;
-        //            }
-        //            mask.SetPixel((int)px, (int)py, color);
-        //        }
-        //    }
-        //}
-
-        //if (back)
-        //{
-        //    for (float i = 0; i < brushTexture.width; i++)
-        //    {
-        //        for (float j = 0; j < brushTexture.height / 2; j++) 
-        //        {
-        //            float px = i + uv.x - brushTexture.width / 2;
-        //            float py = j + uv.y - brushTexture.height / 2;
-        //            Color brushColor = brushTexture.GetPixel((int)i, (int)j);
-        //            Color color = mask.GetPixel((int)px, (int)py) + brushColor;
-        //            if (color.a > 0)
-        //            {
-        //                color.a = 1;
-        //            }
-        //            mask.SetPixel((int)px, (int)py, color);
-        //        }
-        //    }
-        //}
-
-        mask.Apply();
-        GetComponent<MeshRenderer>().material.SetTexture("_SpawnMask", mask);
+        groundMask.Apply();
+        GetComponent<MeshRenderer>().material.SetTexture("_GroundMask", groundMask);
     }
 
     public void DrawAtPosition(Vector2 uv, WaterColor waterColor)
@@ -288,7 +206,7 @@ public class Lawn : MonoBehaviour
                 float px = i + uv.x - brushTexture.width / 2;
                 float py = j + uv.y - brushTexture.height / 2;
                 if (px < 0 || px >= mask.width || py < 0 || py >= mask.height) continue;
-                Vector4 brushColor = brushTexture.GetPixel((int)i, (int)j) * Time.deltaTime * 5;
+                Vector4 brushColor = brushTexture.GetPixel((int)i, (int)j) * Time.deltaTime * 7;
 
                 if (waterColor == WaterColor.BLUE)
                 {
@@ -327,28 +245,23 @@ public class Lawn : MonoBehaviour
                 float px = i + startPoint.x;
                 float py = j + startPoint.y;
                 Color color = new Color(0, 0, 0, 0);
+                groundMask.SetPixel((int)px, (int)py, color);
+            }
+        }
+        groundMask.Apply();
+        GetComponent<MeshRenderer>().material.SetTexture("_GroundMask", mask);
+
+        for (float i = 0; i < gridSize; i++)
+        {
+            for (float j = 0; j < gridSize; j++)
+            {
+                float px = i + startPoint.x;
+                float py = j + startPoint.y;
+                Color color = new Color(0, 0, 0, 0);
                 mask.SetPixel((int)px, (int)py, color);
             }
         }
         mask.Apply();
         GetComponent<MeshRenderer>().material.SetTexture("_SpawnMask", mask);
-    }
-
-    public void DrawBlackSquareAtPosition(Vector2 uv)
-    {
-        Color clearColor = new Color(0, 0, 0, 0);
-        uv.x = uv.x * groundMask.width - 1;
-        uv.y = uv.y * groundMask.height - 1;
-        for (float i = -brushTexture.width / 2; i < brushTexture.width / 2; i++)
-        {
-            for (float j = -brushTexture.height / 2; j < brushTexture.height / 2; j++)
-            {
-                float px = i + uv.x;
-                float py = j + uv.y;
-                groundMask.SetPixel((int)px, (int)py, clearColor);
-            }
-        }
-        groundMask.Apply();
-        GetComponent<MeshRenderer>().material.SetTexture("_GroundMask", groundMask);
     }
 }
