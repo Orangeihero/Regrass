@@ -271,4 +271,8 @@ public class FirstPerosonShooting : MonoBehaviour
         else hl.SetActive(false);
 
     }
+    public WaterColor getWaterColor()
+    {
+        return waterColor;
+    }
 }
