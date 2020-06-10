@@ -14,8 +14,8 @@ public class textController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Text text;
-        text = Gameobject.GetComponent<Text>().text;
-        text = "aaaaa";
+        //Text text;
+        //text = Gameobject.GetComponent<Text>().text;
+        //text = "aaaaa";
     }
 }
