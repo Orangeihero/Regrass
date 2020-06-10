@@ -13,6 +13,7 @@ public class FirstPerosonShooting : MonoBehaviour
     private int mouseButtonDown = 0;
     public GameObject hl; //用来显示高亮的cube
 
+
     public Text debugText;
 
     private LevelCube selectingCube;
@@ -20,9 +21,15 @@ public class FirstPerosonShooting : MonoBehaviour
     //public ParticleSystem waterParticle;
     //public ParticleSystem[] particles = new ParticleSystem[2];
 
+    void Start()
+    {
+        
+    }
+
     // Update is called once per frame
     void Update()
     {
+
         //输入判断
         switch (mouseButtonDown)
         {
