@@ -178,7 +178,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1486297594}
@@ -1256,7 +1256,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1411513447}
@@ -4971,17 +4971,17 @@ PrefabInstance:
     - target: {fileID: 265249350845425682, guid: f15620d2f42352646b1d7fcef70952a0,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 142
       objectReference: {fileID: 0}
     - target: {fileID: 265249350845425682, guid: f15620d2f42352646b1d7fcef70952a0,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 57
       objectReference: {fileID: 0}
     - target: {fileID: 265249350845425682, guid: f15620d2f42352646b1d7fcef70952a0,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -28.5
       objectReference: {fileID: 0}
     - target: {fileID: 265249350845425682, guid: f15620d2f42352646b1d7fcef70952a0,
         type: 3}
@@ -4991,12 +4991,12 @@ PrefabInstance:
     - target: {fileID: 265249350845425682, guid: f15620d2f42352646b1d7fcef70952a0,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 265249350845425682, guid: f15620d2f42352646b1d7fcef70952a0,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1567073818207042151, guid: f15620d2f42352646b1d7fcef70952a0,
         type: 3}
@@ -5032,32 +5032,32 @@ PrefabInstance:
     - target: {fileID: 3777601552478104230, guid: f15620d2f42352646b1d7fcef70952a0,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3777601552478104230, guid: f15620d2f42352646b1d7fcef70952a0,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3777601552478104230, guid: f15620d2f42352646b1d7fcef70952a0,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 71
       objectReference: {fileID: 0}
     - target: {fileID: 3777601552478104230, guid: f15620d2f42352646b1d7fcef70952a0,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -28.5
       objectReference: {fileID: 0}
     - target: {fileID: 3777601552478104230, guid: f15620d2f42352646b1d7fcef70952a0,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 3777601552478104230, guid: f15620d2f42352646b1d7fcef70952a0,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 4191408547940152263, guid: f15620d2f42352646b1d7fcef70952a0,
         type: 3}
@@ -5112,12 +5112,12 @@ PrefabInstance:
     - target: {fileID: 5084608071258449776, guid: f15620d2f42352646b1d7fcef70952a0,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 142
       objectReference: {fileID: 0}
     - target: {fileID: 5084608071258449776, guid: f15620d2f42352646b1d7fcef70952a0,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 57
       objectReference: {fileID: 0}
     - target: {fileID: 5084608071258449776, guid: f15620d2f42352646b1d7fcef70952a0,
         type: 3}
@@ -5152,6 +5152,11 @@ PrefabInstance:
     - target: {fileID: 5445226835878758848, guid: f15620d2f42352646b1d7fcef70952a0,
         type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5605830055369657061, guid: f15620d2f42352646b1d7fcef70952a0,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6268997645872385691, guid: f15620d2f42352646b1d7fcef70952a0,
@@ -5297,7 +5302,7 @@ PrefabInstance:
     - target: {fileID: 9133718467031949415, guid: f15620d2f42352646b1d7fcef70952a0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f15620d2f42352646b1d7fcef70952a0, type: 3}
@@ -5358,7 +5363,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1757168430}
@@ -6007,7 +6012,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1263441228}
@@ -6330,7 +6335,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1160934720}
@@ -6945,7 +6950,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2010998863}
