@@ -12,7 +12,8 @@ public class FirstPerosonShooting : MonoBehaviour
     private WaterColor waterColor = WaterColor.RED;
     private int mouseButtonDown = 0;
     public GameObject hl; //用来显示高亮的cube
-
+    public GameObject fs_small;
+    public GameObject fs_big;
 
     public Text debugText;
 
@@ -29,7 +30,9 @@ public class FirstPerosonShooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //fs = GameObject.FindGameObjectsWithTag("FrontSight");
+        //fs[0].SetActive(true);
+        //fs[1].SetActive(false);
         //输入判断
         switch (mouseButtonDown)
         {
@@ -85,6 +88,8 @@ public class FirstPerosonShooting : MonoBehaviour
                         mouseButtonDown = 0;
                         //waterParticle.Stop();
                         //TODO:修改UI
+                        fs_big.SetActive(true);
+                        fs_small.SetActive(false);
                     }
                     else
                     {
@@ -96,6 +101,8 @@ public class FirstPerosonShooting : MonoBehaviour
                         //WaterAnimation();
 
                         //TODO:修改UI
+                        fs_big.SetActive(false);
+                        fs_small.SetActive(true);
                     }
                     break;
                 }
