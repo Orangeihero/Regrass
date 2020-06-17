@@ -18,4 +18,9 @@ public class WeedSeed : StartPoint
         seedType = SeedType.WEED;
         InitializeGrid();
     }
+
+    private void Update()
+    {
+        UpdateNewVisual();
+    }
 }

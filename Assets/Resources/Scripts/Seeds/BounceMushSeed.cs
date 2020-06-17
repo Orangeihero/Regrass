@@ -4,17 +4,49 @@ using UnityEngine;
 
 public class BounceMushSeed : StartPoint
 {
+    private Rigidbody rigidbody, player;
+    private BoxCollider collider;
+    [Range(1.0f, 50.0f)]
+    public float bounceY = 10.0f;
+    private float epsilon = 0.0001f;
+    private Vector3 bounceV;
+
     // Start is called before the first frame update
     void Start()
     {
         seedType = SeedType.BOUNCEMUSH;
         InitializeGrid();
+
+        rigidbody = GetComponent<Rigidbody>();
+        collider = GetComponent<BoxCollider>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        //TODO:玩家跳跃功能
+        UpdateNewVisual();
+    }
+
+    private void OnTriggerEnter(Collider hit)
+    {
+        if (hit.gameObject.tag == "Player")
+        {
+            if (isActivate)
+            {
+                //Debug.Log("Hit bounce mushroom");
+                player = hit.gameObject.GetComponent<Rigidbody>();
+
+                if (player.velocity[1] - 0 < epsilon)
+                {
+                    bounceV = new Vector3(0f, bounceY, 0f);
+                    player.velocity = bounceV;
+                }
+                else
+                {
+                    player.velocity *= -1;
+                }
+            }
+        }
+
     }
 
     override public void Activate()

@@ -19,7 +19,7 @@ public class FirstPerosonShooting : MonoBehaviour
 
     private LevelCube selectingCube;
 
-    //public ParticleSystem waterParticle;
+    public ParticleSystem waterParticle;
     //public ParticleSystem[] particles = new ParticleSystem[2];
 
     void Start()
@@ -151,55 +151,55 @@ public class FirstPerosonShooting : MonoBehaviour
         //高亮
         HighlightGrid();
 
-        if (selectingGrid != null)
-        {
-            debugText.text = $"Position:{selectingGrid.position}   State:{selectingGrid.state}   Luminance:{selectingGrid.luminance}   Type:{selectingGrid.type}";
-            for(int i = 0;i < selectingGrid.grassStates.Length; i++)
-            {
-                debugText.text += $"\ngrassState[{i}] = {selectingGrid.grassStates[i]}";
-            }
-            //LevelGrid grid = selectingGrid.GetNearGrid(NearGridDirection.LEFT);
-            //if (grid != null)
-            //{
-            //    debugText.text += $"\nLEFT:{grid.position} - {grid.groundColor}";
-            //}
-            //else
-            //{
-            //    debugText.text += "\nLEFT:NULL";
-            //}
-            //grid = selectingGrid.GetNearGrid(NearGridDirection.RIGHT);
-            //if (grid != null)
-            //{
-            //    debugText.text += $"\nRIGHT:{grid.position} - {grid.groundColor}";
-            //}
-            //else
-            //{
-            //    debugText.text += "\nRIGHT:NULL";
-            //}
-            //grid = selectingGrid.GetNearGrid(NearGridDirection.FORWARD);
-            //if (grid != null)
-            //{
-            //    debugText.text += $"\nFORWARD:{grid.position} - {grid.groundColor}";
-            //}
-            //else
-            //{
-            //    debugText.text += "\nFORWARD:NULL";
-            //}
-            //grid = selectingGrid.GetNearGrid(NearGridDirection.BACK);
-            //if (grid != null)
-            //{
-            //    debugText.text += $"\nBACK:{grid.position} - {grid.groundColor}";
-            //}
-            //else
-            //{
-            //    debugText.text += "\nBACK:NULL";
-            //}
+        //if (selectingGrid != null)
+        //{
+        //    debugText.text = $"Position:{selectingGrid.position}   State:{selectingGrid.state}   Luminance:{selectingGrid.luminance}   Type:{selectingGrid.type}";
+        //    for(int i = 0;i < selectingGrid.grassStates.Length; i++)
+        //    {
+        //        debugText.text += $"\ngrassState[{i}] = {selectingGrid.grassStates[i]}";
+        //    }
+        //    //LevelGrid grid = selectingGrid.GetNearGrid(NearGridDirection.LEFT);
+        //    //if (grid != null)
+        //    //{
+        //    //    debugText.text += $"\nLEFT:{grid.position} - {grid.groundColor}";
+        //    //}
+        //    //else
+        //    //{
+        //    //    debugText.text += "\nLEFT:NULL";
+        //    //}
+        //    //grid = selectingGrid.GetNearGrid(NearGridDirection.RIGHT);
+        //    //if (grid != null)
+        //    //{
+        //    //    debugText.text += $"\nRIGHT:{grid.position} - {grid.groundColor}";
+        //    //}
+        //    //else
+        //    //{
+        //    //    debugText.text += "\nRIGHT:NULL";
+        //    //}
+        //    //grid = selectingGrid.GetNearGrid(NearGridDirection.FORWARD);
+        //    //if (grid != null)
+        //    //{
+        //    //    debugText.text += $"\nFORWARD:{grid.position} - {grid.groundColor}";
+        //    //}
+        //    //else
+        //    //{
+        //    //    debugText.text += "\nFORWARD:NULL";
+        //    //}
+        //    //grid = selectingGrid.GetNearGrid(NearGridDirection.BACK);
+        //    //if (grid != null)
+        //    //{
+        //    //    debugText.text += $"\nBACK:{grid.position} - {grid.groundColor}";
+        //    //}
+        //    //else
+        //    //{
+        //    //    debugText.text += "\nBACK:NULL";
+        //    //}
 
-        }
-        else
-        {
-            debugText.text = "NULL";
-        }
+        //}
+        //else
+        //{
+        //    debugText.text = "NULL";
+        //}
 
 
     }
@@ -237,7 +237,7 @@ public class FirstPerosonShooting : MonoBehaviour
 
     private void WaterAnimation()
     {
-        //waterParticle.Play();
+        waterParticle.Play();
     }
 
     private void HighlightGrid()

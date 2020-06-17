@@ -12,7 +12,11 @@ public class BlockTreeSeed : StartPoint
     {
         seedType = SeedType.BLOCKTREE;
         InitializeGrid();
-        RecalculateLight();
+    }
+
+    private void Update()
+    {
+        UpdateNewVisual();
     }
 
     override public void Activate()
@@ -31,11 +35,6 @@ public class BlockTreeSeed : StartPoint
             ChangeModel(false);
             ShadeGrid();
         }
-    }
-
-    private void RecalculateLight()
-    {
-        //TODO:把遮罩地面的信息存储
     }
 
     private void ShadeGrid()

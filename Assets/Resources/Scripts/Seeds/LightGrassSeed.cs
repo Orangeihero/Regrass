@@ -13,6 +13,11 @@ public class LightGrassSeed : StartPoint
         InitializeDoor();
     }
 
+    private void Update()
+    {
+        UpdateNewVisual();
+    }
+
     override public void Activate()
     {
         if(ChangeModel(true))   SeasameDoor();

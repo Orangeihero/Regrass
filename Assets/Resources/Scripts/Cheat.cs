@@ -5,14 +5,16 @@ using UnityEngine;
 public class Cheat : MonoBehaviour
 {
     public List<Door> doors;
+    public TextController textController;
     private void Update()
     {
-        for(int i = 0;i < doors.Count; i++)
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            if(Input.GetKeyDown((KeyCode)i + 49))
-            {
-                doors[i].Open();
-            }
+            textController.showInfo("Press Left Mouse Button to Shoot Water" , 2);
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            textController.showInfo("Press Right Mouse Button to Clear the Ground", 2);
         }
     }
 }

@@ -181,10 +181,10 @@ public class Lawn : MonoBehaviour
                     color.r = 1f;
                 }
 
-                if (color.a > 0)
-                {
-                    color.a = 1;
-                }
+                //if (color.a > 0)
+                //{
+                //    color.a = 1;
+                //}
                 groundMask.SetPixel((int)px, (int)py, color);
             }
         }
@@ -223,11 +223,40 @@ public class Lawn : MonoBehaviour
                 color.b += brushColor.z;
                 color.a += brushColor.w;
 
+                color.r = Mathf.Clamp(color.r, 0, 1);
+                color.g = Mathf.Clamp(color.g, 0, 1);
+                color.b = Mathf.Clamp(color.b, 0, 1);
+
                 if (color.a > 0)
                 {
                     color.a = 1;
                 }
 
+                mask.SetPixel((int)px, (int)py, color);
+            }
+        }
+        mask.Apply();
+        GetComponent<MeshRenderer>().material.SetTexture("_SpawnMask", mask);
+    }
+
+    public void FillAtPosition(Vector2 uv, WaterColor waterColor)
+    {
+        Vector2 startPoint = new Vector2(Mathf.Floor(uv.x * width), Mathf.Floor(uv.y * height)) * gridSize;
+        for (float i = 0; i < gridSize; i++)
+        {
+            for (float j = 0; j < gridSize; j++)
+            {
+                float px = i + startPoint.x;
+                float py = j + startPoint.y;
+                Color color = new Color(1, 0, 0, 1);
+                if (waterColor == WaterColor.BLUE)
+                {
+                    color.g = 1;
+                }
+                else
+                {
+                    color.b = 1;
+                }
                 mask.SetPixel((int)px, (int)py, color);
             }
         }

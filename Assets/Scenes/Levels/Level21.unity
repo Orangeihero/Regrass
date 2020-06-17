@@ -10026,7 +10026,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh20276
+  m_Name: pb_Mesh-102372
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -10566,26 +10566,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5028895607640566476, guid: f15620d2f42352646b1d7fcef70952a0,
-        type: 3}
-      propertyPath: _crouchModifiers.useCrouch
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5028895607640566476, guid: f15620d2f42352646b1d7fcef70952a0,
-        type: 3}
-      propertyPath: headbobSideMovement
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5028895607640566476, guid: f15620d2f42352646b1d7fcef70952a0,
-        type: 3}
-      propertyPath: advanced.maxStepHeight
-      value: 0.53
-      objectReference: {fileID: 0}
-    - target: {fileID: 5028895607640566476, guid: f15620d2f42352646b1d7fcef70952a0,
-        type: 3}
-      propertyPath: cameraSmoothing
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7368019981952023901, guid: f15620d2f42352646b1d7fcef70952a0,
         type: 3}
@@ -18910,7 +18890,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-135530
+  m_Name: pb_Mesh-9540
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

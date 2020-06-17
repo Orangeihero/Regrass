@@ -17,6 +17,12 @@ public class PureGrassSeed : StartPoint
         switches.SealGrids();
     }
 
+    private void Update()
+    {
+        UpdateNewVisual();
+    }
+
+
     private void Start()
     {
         seedType = SeedType.PUREGRASS;

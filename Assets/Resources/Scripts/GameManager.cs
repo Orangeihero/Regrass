@@ -31,6 +31,11 @@ public class GameManager : MonoBehaviour
         updateGridVisual += splitter.VisualUpdateRequest;
     }
 
+    public static void AddStartPoint(StartPoint start)
+    {
+        updateGridVisual += start.VisualUpdateRequest;
+    }
+
     public static void ResetScanGrid()
     {
         startScan();

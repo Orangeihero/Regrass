@@ -18,6 +18,10 @@ public class Door : MonoBehaviour
 
     public void addLock()
     {
+        if(lockCount == 0)
+        {
+            gameObject.SetActive(true);
+        }
         lockCount++;
     }
 

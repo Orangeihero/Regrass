@@ -186,6 +186,22 @@ public class LevelCube : GridSplitter
             }
         }
     }
+
+    public void FillAtPosition(Vector3 pos,WaterColor color)
+    {
+        LevelGrid grid = GetGridAtPosition(pos);
+        if (grid.type == GridType.SOIL)
+        {
+            Vector2 uv = GetUVAtPosition(grid, pos);
+            Lawn lawn = GetLawnAtPosition(grid);
+            if (lawn != null)
+            {
+                lawn.FillAtPosition(uv, color);
+            }
+        }
+    }
+
+
     public void DisableLawnAtGrid(LevelGrid grid)
     {
         Vector2 uv = GetUVAtPosition(grid, grid.position);
